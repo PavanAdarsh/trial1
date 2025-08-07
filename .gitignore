@@ -1,2 +1,15 @@
 build/
+Debug/
+.main.c.swn
+.led.h.swp
+.main.c.swp
+.ccsproject
+.project
+.ccsproject
+.cproject
+.led.c.swp
+.main.c.swp
+targetConfigs/
+.settings/
+.clangd
 
