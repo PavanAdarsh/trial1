@@ -17,6 +17,7 @@ BIN_DIR = $(BUILD_DIR)/bin
 #Toolchain
 CC = msp430-elf-gcc -mmcu=msp430g2553
 DEBUG = $(LD_LIBRARY_PATH=$(DEBUG_DRIVERS_DIR) $(DEBUG_BIN_DIR)/ mspdebug
+CPPCHECK = cppcheck
 
 #Files
 TARGET = $(BIN_DIR)/blink
@@ -49,12 +50,18 @@ $(OBJ_DIR)/%.o: %.c
 #automatic variables in place of input ($^) and output ($@)
 
 #Phonies
-.PHONY: all clean flash
+.PHONY: all clean flash cppcheck
 
 all: $(TARGET)
 clean: 
 	rm -r $(BUILD_DIR)
 flash: 
 	$(DEBUG) tilib "prog$(TARGET)"
+cppcheck: 
+	@$(CPPCHECK) --quiet --force --enable=all --error-exitcode=1 \
+	--inline-suppr \
+	-I $(INCLUDE_DIRS) \
+	$(SOURCE) \
+	-I printf 
 
 
